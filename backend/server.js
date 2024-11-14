@@ -1,4 +1,3 @@
-// backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -9,7 +8,6 @@ dotenv.config();
 
 const productRoutes = require('./routes/productRoutes');
 const authRoutes = require('./routes/authRoutes');
-const authenticateToken = require('./middleware/authMiddleware');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -38,7 +36,7 @@ connectDB(); // Invoke the function to connect to MongoDB
 
 // Routes
 app.use('/api', authRoutes);
-app.use('/api', authenticateToken, productRoutes);
+app.use('/api', productRoutes); // Make sure this does not repeat middleware
 
 // Error handling middleware
 app.use((err, req, res, next) => {

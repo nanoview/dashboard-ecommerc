@@ -5,7 +5,7 @@ const {
   updateProduct,
   deleteProduct,
 } = require('../controllers/productController');
-const authenticateToken =require('../middleware/authMiddleware');
+const authenticateToken = require('../middleware/authMiddleware'); // Correctly import middleware
 const router = express.Router();
 
 router.get('/products', authenticateToken, getProducts);

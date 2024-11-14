@@ -4,11 +4,14 @@ import { Link } from 'react-router-dom';
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <h2>Dashboard</h2>
-      <ul>
-        <li><Link to="/dashboard">Products</Link></li>
-        {/* Add more links as needed */}
-      </ul>
+      <h2>Admin Dashboard</h2>
+      <nav>
+        <ul>
+          <li><Link to="/dashboard">Dashboard</Link></li>
+          <li><Link to="/settings">Settings</Link></li>
+          <li><Link to="/logout">Logout</Link></li>
+        </ul>
+      </nav>
     </div>
   );
 };
