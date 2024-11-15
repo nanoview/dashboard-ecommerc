@@ -9,7 +9,7 @@ import ProductManagement from './ProductManagement';
 
 const ProductComponent = ({ token }) => {
   const [products, setProducts] = useState([]);
-  const [newProduct, setNewProduct] = useState({ name: '', price: '', quantity: '' });
+  const [newProduct, setNewProduct] = useState({ name: '', price: '', quantity: '', description: '', photo: '' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const ProductComponent = ({ token }) => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setProducts([...products, response.data]);
-      setNewProduct({ name: '', price: '', quantity: '' });
+      setNewProduct({ name: '', price: '', quantity: '', description: '', photo: '' });
     } catch (error) {
       console.error('Error adding product:', error.response ? error.response.data : error.message);
     }

@@ -1,4 +1,6 @@
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
@@ -36,7 +38,17 @@ connectDB(); // Invoke the function to connect to MongoDB
 
 // Routes
 app.use('/api', authRoutes);
-app.use('/api', productRoutes); // Make sure this does not repeat middleware
+app.use('/api', productRoutes);
+
+// File Upload Configuration
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/api/upload', upload.single('photo'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+  res.send({ filePath: path.join(__dirname, 'uploads', req.file.filename) });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

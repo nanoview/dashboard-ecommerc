@@ -1,47 +1,49 @@
-// backend/controllers/productController.js
 const Product = require('../models/productModel');
 
-exports.getProducts = async (req, res) => {
+// Get all products
+const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    console.log('Fetched products:', products);
-    res.json(products);
+    res.status(200).json(products);
   } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
-exports.createProduct = async (req, res) => {
+// Create a new product
+const createProduct = async (req, res) => {
   try {
     const newProduct = new Product(req.body);
-    await newProduct.save();
-    console.log('Product created:', newProduct);
-    res.json(newProduct);
+    const savedProduct = await newProduct.save();
+    res.status(201).json(savedProduct);
   } catch (error) {
-    console.error('Error creating product:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(400).json({ message: error.message });
   }
 };
 
-exports.updateProduct = async (req, res) => {
+// Update a product
+const updateProduct = async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    console.log('Product updated:', updatedProduct);
-    res.json(updatedProduct);
+    res.status(200).json(updatedProduct);
   } catch (error) {
-    console.error('Error updating product:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(400).json({ message: error.message });
   }
 };
 
-exports.deleteProduct = async (req, res) => {
+// Delete a product
+const deleteProduct = async (req, res) => {
   try {
-    const removedProduct = await Product.findByIdAndDelete(req.params.id);
-    console.log('Product deleted:', removedProduct);
-    res.json(removedProduct);
+    await Product.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Product deleted' });
   } catch (error) {
-    console.error('Error deleting product:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: error.message });
   }
+};
+
+module.exports = {
+  getProducts,
+  createProduct,
+  updateProduct,
+  deleteProduct
 };

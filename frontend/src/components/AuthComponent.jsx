@@ -5,47 +5,36 @@ import { useNavigate } from 'react-router-dom';
 const AuthComponent = ({ setToken }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegister, setIsRegister] = useState(true);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const endpoint = isRegister ? 'register' : 'login';
     try {
-      const response = await axios.post(`http://localhost:5000/api/${endpoint}`, { username, password });
-      if (!isRegister) {
-        setToken(response.data.token);
-        localStorage.setItem('token', response.data.token);
-        navigate('/dashboard'); // Redirect to dashboard
-      }
-      setUsername('');
-      setPassword('');
+      const response = await axios.post('http://localhost:5000/api/login', { username, password });
+      localStorage.setItem('token', response.data.token);
+      setToken(response.data.token);
+      navigate('/dashboard');
     } catch (error) {
-      console.error('Error during authentication:', error.response ? error.response.data : error.message);
+      console.error('Error logging in:', error.response ? error.response.data : error.message);
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">{isRegister ? 'Register' : 'Login'}</button>
-      </form>
-      <button onClick={() => setIsRegister(!isRegister)}>
-        {isRegister ? 'Already have an account? Login' : 'Need an account? Register'}
-      </button>
-    </div>
+    <form onSubmit={handleLogin}>
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+      />
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button type="submit">Login</button>
+    </form>
   );
 };
 
