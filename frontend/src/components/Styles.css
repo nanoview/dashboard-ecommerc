@@ -10,6 +10,7 @@ body {
   background-color: #000000;
   overflow: hidden;
   color: #f2f2f2;
+  
 }
 
 .navbar a {
@@ -34,13 +35,14 @@ body {
   height: 100%;
   background-color: #000000;;
   padding-top: 20px;
+  padding-left: 20px;
   color: #f2f2f2;
 }
 
 .sidebar a {
   display: block;
   color:#d1cccc;
-  padding: 8px 16px;
+
   text-decoration: none;
 }
 
@@ -148,6 +150,34 @@ table tr:nth-child(even) td {
 
 ul {
   list-style:none;
-  padding:0;
+  padding: 0;
   margin:0;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.form-container input,
+.form-container textarea,
+.form-container button {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+}
+
+.form-container button {
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background-color: #27ae60;
 }
