@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <h5>Admin Dashboard</h5>
-      {/* Add more navbar elements as needed */}
+      <Link to="/">Home</Link>
+      <Link to="/dashboard">Dashboard</Link>
+      <Link to="/logout">Logout</Link>
     </div>
   );
 };
